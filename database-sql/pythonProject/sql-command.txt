@@ -1,0 +1,389 @@
+How to create a database
+-> CREATE DATABASE IF NOT EXISTS [database name]
+
+
+
+How to drop a database
+-> DROP DATABASE [database name]
+
+
+
+How to create table:-
+Firstly go to the database in which you wanted to create table than
+
+-> CREATE TABLE IF NOT EXISTS [table name](
+id integer,
+name varchar(255),
+email varchar (255),
+)
+
+
+How to drop a table :-
+Firstly go on to the table which you wanted to delete than
+
+-> DROP TABLE [table name]
+
+
+If the table already has some value and we have to remove all those values than :-
+
+-> TRUNCATE TABLE [table name]
+
+
+
+
+
+CONSTRAINT IN SQL :-
+
+1. NOT NULL :-
+Iska basically matlab ye has ki ye kabhi bhi kali nahi reh sakta agar apne koi value nahi de than it will
+autogenerate it
+
+-> CREATE TABLE IF NOT EXISTS [table name](
+id integer NOT NULL,
+name varchar (255)
+)
+
+
+2. UNIQUE :-
+Koi bhi value again repeat nhi ho sakti
+
+-> CREATE TABLE IF NOT EXISTS [table name](
+id integer,
+name varchar(255),
+email varchar(255) UNIQUE
+)
+
+Here there is another way to write constraints (this can be done for others constraint as well) :-
+
+-> CREATE TABLE IF NOT EXISTS [table name](
+id integer NOT NULL,
+name varchar(255),
+email varchar(255),
+CONSTRAINT U_email UNIQUE(email, id)
+)
+
+
+3. Primary Key :-
+This is used to uniquely identify things
+
+-> CREATE TABLE IF NOT EXISTS [table name](
+id integer PRIMARY KEY,
+name varchar(255),
+email varchar(255),
+)
+
+
+4 Foreign Key :-
+This is used to refer a primary key of one table with another table
+
+Let say we have 2 tables users and orders
+
+-> CREATE TABLE IF NOT EXISTS users(
+id integer PRIMARY KEY,
+name varchar(255),
+email varchar(255),
+)
+
+-> CREATE TABLE IF NOT EXISTS orders(
+order_id integer PRIMARY KEY,
+user_id integer ,
+name varchar(255),
+email varchar(255),
+FOREIGN KEY (user_id) REFERENCES users(id)
+)
+
+
+5. CHECK :-
+Basically it is a if else condition for database
+
+-> CREATE TABLE IF NOT EXISTS users(
+id integer PRIMARY KEY,
+name varchar(255),
+email varchar(255),
+age integer CHECK(age>6 AND age < 25)
+)
+
+6. Default :-
+Agar koi cheez kisine specify nhi kiya toh jo default hoga vahi aa jayega
+
+-> CREATE TABLE IF NOT EXISTS users(
+id integer PRIMARY KEY,
+name varchar(255),
+email varchar(255),
+gender varchar(255) DEFAULT 'other'
+)
+
+7. AUTO INCREMENT :-
+It will auto increment the value
+
+-> CREATE TABLE IF NOT EXISTS users(
+id integer PRIMARY KEY AUTO_INCREMENT,
+name varchar(255),
+email varchar(255),
+)
+
+
+
+
+Alter Table :-
+
+1. ADD cols :-
+
+-> CREATE TABLE IF NOT EXISTS users(
+id integer PRIMARY KEY AUTO_INCREMENT,
+name varchar(255),
+email varchar(255),
+)
+
+so the above table is already been there now we have to add college_name and class than
+
+-> ALTER TABLE users ADD COLUMN (college_name , class) varchar(255) NOT NULL
+
+
+1. Remove cols :-
+
+-> CREATE TABLE IF NOT EXISTS users(
+id integer PRIMARY KEY AUTO_INCREMENT,
+name varchar(255),
+email varchar(255),
+)
+
+so the above table is already been there now we have to remove college_name :-
+
+-> ALTER TABLE users DROP COLUMN college_name
+
+
+2. Modify Column:-
+
+-> CREATE TABLE IF NOT EXISTS users(
+id integer PRIMARY KEY AUTO_INCREMENT,
+name varchar(255),
+email varchar(255),
+)
+
+so the above table is already been there now we have to modify the column email from varchar(255) to integer
+
+-> ALTER TABLE users MODIFY COLUMN email integer
+
+
+3. Add/Remove Constraint :-
+
+Remove Constraint :-
+
+-> CREATE TABLE IF NOT EXISTS [table name](
+id integer NOT NULL,
+name varchar(255),
+email varchar(255),
+CONSTRAINT U_email UNIQUE(email, id)
+)
+
+so the above table is already been there now we have to remove the above constraint U_email than:-
+
+-> ALTER TABLE users DROP CONSTRAINT U_email
+
+Add Constraint :-
+
+-> ALTER TABLE users ADD CONSTRAINT U_email UNIQUE(email)
+
+
+
+
+DML :-
+
+1. INSERT:-
+It will basically help to insert values in the table
+
+-> INSERT INTO [table name] (id , name , email ) VALUES (1 , 'het' , 'hets@gmail.com')
+
+Here it is not necessary to write all the columns names if we are giving values to each and every column
+so if we are giving all the values than we can write
+
+-> INSERT INTO [table name] VALUES (1 , 'het' , 'hets@gmail.com')
+
+Here we can add multiply values simultaneously
+
+-> INSERT INTO [table name] VALUES (1 , 'het' , 'hets@gmail.com') , (2 , 'shah' , 'shah@gmail.com')
+
+
+Retrieve Command :-
+
+Agar hume ek table se sare data chahiya than we can use :-
+-> SELECT * FROM [table name]
+
+If We don't want all the columns we just want some specific columns than :-
+-> SELECT [columns that need to be selected] FROM [table name]
+
+Agar koi columns ke name bohot kharab ho and if we want to change that than
+-> SELECT name AS passengerName , sex AS Gender , passenger FROM [table name]
+
+Agar hume koi do columns (perferably numeric) ko add karna ho than :-
+-> SELECT name , siblings + parent AS family FROM [table name]
+So Here what will happen is jo do columns hai (siblings and parent) un dono ko add karke ek new columns banegi
+named as family where it would be the sum of siblings + parent
+
+Agar humne koi ek column add karni ho on the basis of something than:-
+-> SELECT name , 100000 AS compensation FROM [table name]
+
+Agar humne find karna ho like ki us database mai kon kon se age wale hai than :-
+-> SELECT DISTINCT age FROM [table name]
+Matlab se sari unique values de dega that is on that database
+
+Agar hume koi 2 columns ko milake distinct values find karni ho than :-
+-> SELECT DISTINCT age , sex FROM [table name]
+
+Aar humne koi camparision perform karna ho toh :-
+-> SELECT * FROM [table name] WHERE [column name] = [condition like age >20 etc etc ]
+Here we can also use AND , OR , BETWEEN operators as well
+
+Order of query execution :-
+FJWGHSDO
+(FROM , JOIN , WHERE , GROUP BY , HAVING , SELECT , DISTINCT , ORDER BY)
+
+Agar hume specific categories wise filter karna hai database ko than :-
+-> SELECT title FROM [table name] WHERE genre LIKE 'Comedy' OR genre LIKE 'Horror' OR genre LIKE 'Romantic'
+Here we can see ki bohot sare OR Statment use ho rahe hai so to avoid that we can write
+-> SELECT title , name From [table name] WHERE genre IN('horror' , 'comedy' , 'romantic')
+
+Agar humne un movies ka list chahiye jo action horror and romantic mai nhi ati than :-
+-> SELECT title , name From [table name] WHERE genre NOT IN('horror' , 'comedy' , 'romantic')
+
+
+Wildcards :-
+
+1) % :-
+Agar hume asa koi data chahiye jistaka first letter 'a' ho and age kuch bhi ho chalega than
+-> SELECT title FROM [table name] WHERE title LIKE 'a%'
+Agar hume asa kuch search karna hai ki koi movie ke name mai 'man' word ata hai ki nhi than
+-> SELECT title FROM [table name] WHERE title LIKE '%man%'
+
+2) _ :-
+Agar hume kuch asa retrive karna ho jisme sirf 5 character ho than
+-> SELECT title FROM [table name] WHERE title LIKE '_____'
+Agar hume chahiye ki 5 letter movie that start with a
+-> SELECT title FROM [table name] WHERE title LIKE 'a____'
+
+
+Update :-
+Lets say humare pass koi data hai jisme hume sare name ko het mai update karna hai than
+-> UPDATE [table name] SET [column name] = 'Het'
+Agar hume asa kuch chahiye ki jiska bhi email mai gmail likha ho useme name het kar ho than
+-> UPDATE [table name] SET [column name] = 'Het' WHERE [column name] LIKE '%gmail%'
+Agar hume asa kuch chahiye ki jiske email mai yahoo aa raha ho uske email , name ko update karo
+-> UPDATE [table name] SET [column name] = 'Het' , [column name] = 'gmail.com' WHERE [column name] LIKE '%yahoo%'
+
+
+Delete:-
+Lets say if we want to delete a passenger whose id is 1 than :-
+-> DELETE FROM [table name] WHERE id = 1
+Agar hume sare ke sare rows ko delete karna ho than :-
+-> DELETE FROM [table name] WHERE 1
+
+
+Functions:-
+
+1) Abs
+Agar hume sare +ve and -ve values sirf +ve mai chahiye than
+-> SELECT ABS((gross - budget)) AS profit FROM [table name]
+
+2) Round
+Agar hume koi bhi decimal koi round off karna ho than
+-> SELECT ROUND((gross - budget)) AS profit FROM [table name]
+Agar hume chahiye ki 1 decimal place tak hi show kare than
+-> SELECT ROUND((gross - budget),1) AS profit FROM [table name]
+
+Similarly CONCAT , LENGTH , CIEL , FLOOR , UPPER ,MIN , MAX ,SUM , AVG , COUNT , COUNT(DISTINCT(column name)) ,  LOWER works
+NOTE :- COUNT(DISTINCT(column name)) will count all the unique values in the data base
+
+3) Substring :-
+Agar hume koi string ka kuch part chahiye toh
+-> SELECT SUBSTR(title , 1 , 5) FROM [table name]
+NOTE:- Indexing Starts from 1
+
+4) ORDER BY
+Agar hume data decreasing or increasing ordeer mai chahiye than
+-> SELECT profit AS netprofit FROM [table name] ORDER BY profit DESC ( for increasing use ASC)
+Agar hume sirf top 5 movies hi chahiye than
+-> SELECT profit AS netprofit FROM [table name] ORDER BY profit DESC LIMIT 5
+NOTE :- We can use ORDER BY in more than one column as well
+
+
+Grouping Data:-
+Lets say agar hume sari movies ka data diya huva hai an we have to find ki konse actor nai sabse jayada movies ki hai than
+what we can do is phele toh hum ek naya database banayenge where hum ek particular actor ki sari movies ko list karenge
+than we will count the number of rows in that and bad mai usko decreading order mai set kar denge using group by funcion
+-> SELECT actor , COUNT(*) AS number_of_rows FROM [table name] GROUP BY actor ORDER BY number_of_rows LIMIT 5
+NOTE:- COUNT(*) will count the number of rows in the table
+
+-> SELECT actor , director , title , SUM( AS total_budget FROM movies GROUP BY actor , director  ORDER BY total_budget DESC LIMIT 1
+
+
+Having :-
+Agar hume asa kuch chaihiye ki ase actors batao jinko 1000 se zayada screen pe movies mili hai
+-> SELECT actor ,AVG(screens) AS opening FROM movies GROUP BY actor HAVING opening > 1000 ORDER BY opening DESC
+
+
+
+CASE STATEMENT :- (It is basically a if else statement in sql
+-> SELECT title , profit ,
+CASE
+WHEN profit > 10000000 THEN 'superhit'
+WHEN profit < 10000000 and profit >20000000 THEN 'AVERAGE'
+ELSE "FLOP"
+FROM movies
+
+
+JOINS IN sql :-
+
+a) CROSS JOIN
+Agar hume kisi bhi 2 table ke bich mai sare combinations chahiye than what we can do is:-
+-> SELECT * FROM [table name] CROSS JOIN [another table name]
+
+
+There are basically 4 types of joins :-
+Like agar 2 veins diagram hai "A" and "B" unka intersaction will be considered as Inner join , Sirf full "A" will be
+considered as Left join and full B will be considered as Right join and Both A union B will be considered as full outer
+join
+
+1) Inner Join:-
+Here vahi users display honge jo dono group mai ho
+-> SELECT * FROM membership JOIN users on membership.id = users.uid
+So Idar vahi log display honge jinka membership mai id and users mai uid same ho agar ek bhi jaga pe nhi hai than it will
+not display it
+Note:- jo bhi idar left side mai ata hai use left table bolenge and jo bhi right side mai ata hai use right table bolenge
+
+
+2) Left outer join :-
+-> SELECT * FROM membership LEFT OUTER JOIN users on membership.id = users.uid
+SO isme kya hoga ki jo users membership mai hai but users mai nhi hai vo bhi is bar display honge along with jo common
+hai
+
+
+3) Right outer join :-
+-> SELECT * FROM membership RIGHT OUTER JOIN users on membership.id = users.uid
+SO isme kya hoga ki jo users users mai hai but membership mai nhi hai vo bhi is bar display honge along with jo common
+hai
+
+
+4) Full Outer Join:-
+Isme dono table ka sara ka sara data display honga irrespective of vo common ho va na ho
+-> SELECT id FROM membership LEFT OUTER JOIN users ON membership.id = users.id
+-> UNION
+-> SELECT uid FROM users RIGHT OUTER JOIN membership ON membership.id = users.id
+So this will basically display all the unique values in that tables and isme humne ye dhyan rakna hai ki jo bhi
+values ko fetch kar rahe hai that should be of same datatype and union will only display all the unique values only
+
+If we want all the value irrespective of ki vo unique hai ya nhi hai we can do one thing that is:-
+-> SELECT id FROM membership LEFT OUTER JOIN users ON membership.id = users.id
+-> UNION
+-> SELECT uid FROM users RIGHT OUTER JOIN membership ON membership.id = users.id
+
+
+For an example agar humare pas ek database hai jisme ek users mai emergency contact mai dusara user ki id hai than hum
+kya query likhe ki jis user ki id hai emergency contact mai vo user show ho :-
+-> SELECT u1.name , u2.name FROM users u1 JOIN users u2 ON u1.emergency_contact = u2.id
+
+
+Sub Query :-
+-> SELECT * FROM movies WHERE budget = (SELECT MAX(budget) FROM movies)
+Agar hume vahi movies ko list karna hai jismai actor ka name a se start hota hai
+-> SELECT * FROM movies WHERE actor IN (SELECT DISTINCT(actor) FROM movies WHERE actor LIKE "a%"

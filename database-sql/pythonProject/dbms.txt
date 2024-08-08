@@ -1,0 +1,199 @@
+DBMS theory
+
+What is data ?
+Data is a piece of raw data and figure
+
+Requirements of data :-
+1. Integrity :- accurate and consistent
+2. Availablity :- Should Be Available always
+3. Security:- Data should be secure
+4. Independent Of Application :- dabase of single website should be same
+5. Concurrency:- sab ko kuch same hi dikhana chahiye if asked a same question
+
+
+We know that databases are very coastly so wht don't we use flast files ?
+Limitations :-
+1 Dependency Of program on physical structure of data (matalb vo toh csv file mai deta hai )
+2 complex process to retrieve data
+3. loss of data on concurrent access
+4. inability to give access based on record (security)
+5. data redundancy
+
+use-cases for files :-
+1. on device access (like a history feature in calculator)
+2. storing frequent incoming data
+3. storing not so important data
+
+
+what is a databse ?
+A database is a shared collection of logically related data and decription of theses data,
+designed to meet the information needs of an organisation
+
+what is a DBMS
+a database management system is a software system that enable users to define ,
+create , maintain and control access to the database , database system have high cost
+and they require high end hardware configuration
+
+an application program interacts with a database by issuing an appropriate request
+(typically a sql statement )
+
+Functions of dbms:
+1. data management :- store , retrive and modify data
+2. integrity :- maintain accuracy of data
+3. security :- access to authrized users only
+4. Concurrency :- simultaneous ddata access for multiple users
+5. Trasaction :- modification to database must either be successful or must not happen at all
+6. Security :- access to authorized users only
+7. Utilities:- data import / export , user management , backup , logging
+
+Types of databases:-
+1. hierarchical
+2. network
+3. nosql
+4. relational
+
+Relational Database (RDBMS) :-
+Its is a collection of tables (known as relation )
+
+Here column is known as attributes and rows are  known as tuples
+
+Here No Of rows are known as cardinality of the relation
+and no of attributes are known as degree of the relation
+
+If any value is missing that it is known as null value
+
+
+Data integrity and constraints:-
+
+data integrity refers to maintaining and assuring the accuracy and consistency of data
+over its entire life cycle
+
+Database systems ensure data integrity through constariants which are used to
+restrict data that can be entered or modified in the database database systems offer three types
+of integrity constraints
+
+
+Type of integrity constrainst:-
+1. Entity Integrity :- each tables must have a column or a set of columns through which
+we can uniquely identify a row these column(s) cannot have empty (null) values
+
+Constraints :- Primary Key
+
+2. Domain integrity :- All Attribute in a table must have a defined domain i.e
+finite set of values whihc have to be used when we assign a data type to a column we
+limit the values that it can contain. in adition we can also have value restriction
+as per business rules eg gender must be M or F
+
+Constraint :- Data types , check constraint
+
+3. referential Integrity :- Every Value of a column in a table must exist as a value of
+another column in a different (or the same ) table
+
+Constraint :- Foreign Key
+
+
+
+DataBase Keys :-
+A DBMS key is an attribute or set of attributes which helps us uniquely identify a row in a
+relation/ table
+
+Why do we need keys:-
+1. To uniquely identify a row
+2. To Enforce Data integritee and constraints
+3. to Establish relationship between tables
+
+
+Type Of KEys in RDBMS:-
+1. Super key :-
+2. Candidate Key
+3. Primary Key
+4. Alternate key
+5. Foreign Key
+6. Composite key
+7. Compound Key
+8. Surrogate key
+
+__________________________________________________________
+| Emp-id | Aadhar card | Emp-name | Dob | Salary | Email |
+__________________________________________________________
+
+
+Isme sari columns mai se {emp-id , aadhar no , email} can be consider keys as this will always be unique
+
+1. Super Keys :-
+So sare keys ka power set i.e {emp-id , aadhar no , email , email-aadhar no , emp-id - aadhar , emp-id - email  ,
+emp-id - email - aadhar no} will be considered as super key
+
+
+2. Candidate Key :-
+Minimun no of columns to become a key
+
+Like here {email} , {emp-id} , {aadhar no} can be considered as candidate key where as { email-aadhar no }
+, {emp-id - aadhar },{ emp-id - email  },{ emp-id - email - aadhar no} cannot be considered as candidate key as
+we can make key as single columns as well
+
+
+3. Primary Key :-
+Primary key is that candidate key that is finally selected to uniquely identify users
+
+How to Decide Primary Key:-
+a) It Should ALways be unique
+b) It should never be null
+
+Preferable Things that can be considered while selecting primary key :-
+a) It should Be numberical
+b) It should Be As Small as it could be
+
+
+4. Alternate Key :-
+The Remaning Keys Apart from primary key that are not selected are considered as alternate key
+
+so Candidate Key - Primary Key == Alternate Key
+
+
+5. Foreign Key :-
+When one table primary key is used in another table than it is known as foreign key
+
+
+6. composite key:-
+It is that kind of super key which has more than one key in that list
+
+like for above example we have composite key as {email-aadhar no },{ emp-id - aadhar },{ emp-id - email } ,{
+emp-id - email - aadhar no}
+
+
+7. Compound key :-
+Compound key ek asa composite key hai jisme atleast ek key foreign key ho (which means it is used as a primary key in
+any other tables as well
+
+
+8. surrogate key:-
+Jab koi database mai koi bhi uniquely identified column na ho than we can create our own unique column and that
+column is known as surrogate key
+
+
+
+
+Entity Relationship Model :-
+
+Er Diagram :- It is a graphical representation of entities and their relationship which helps in understanding data
+independent of the actual database implementation
+
+Entity:- Real world object which has an independent existancce and about which  we intend to collect data
+
+Attribute:- A Property that describe an entity
+
+
+Cardinality Of relationship :-
+Cardinality Of relationaship is the number of instances in one entity Which is associated to the number of instance
+in another
+
+for a relationship between employee and computer it helps us to answer question like how many computer can be allocated
+to an employee , can computers be shared with employees , can employee exist without allocating a computer
+
+They are of three types :-
+1) one to one relationship
+2) One to many relationship
+3) Many to many relationship
+
+
